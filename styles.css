@@ -66,7 +66,7 @@ img{
     width:200px;
     height:200px;
 }
-.temptext{
+.tempNumber{
     font-size:4rem;
 }
 .weather-info{
@@ -81,4 +81,12 @@ img{
 }
 .country{
     font-size: 1.5rem;
+}
+.foreCard{
+    width: 200px;
+    height:200px;
+    background-color: gold;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: space-around;
 }

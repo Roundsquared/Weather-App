@@ -4,6 +4,12 @@ const searchBox = document.getElementById('search-city');
 let query;
 let days = 3;
 let dataChecker;
+const forecastBody = document.querySelector('.forecast');
+const tempText = document.querySelector('.tempText');
+const tempNumber = document.querySelector('.tempNumber');
+const city = document.querySelector('.city');
+const state = document.querySelector('.state');
+const country = document.querySelector('.country');
 async function getTheWeather(method,query){
     const response = await fetch(`http://api.weatherapi.com/v1/${method}.json?key=7c5ae783336f49c7a99165328231411&q=${query}&days=${days}`,{mode: 'cors'});
     const json = await response.json();
@@ -14,10 +20,14 @@ async function getTheWeather(method,query){
     const current = json.current;
 
     //Unpacking location data
-    const city = whereAmI.name;
-    const country = whereAmI.country;
-    const region = whereAmI.region;
-    const localTime = whereAmI.localtime;
+    const currentCity = whereAmI.name;
+    const currentCountry = whereAmI.country;
+    const currentRegion = whereAmI.region;
+    const currentLocalTime = whereAmI.localtime;
+
+    city.textContent = currentCity;
+    state.textContent = currentRegion;
+    country.textContent = currentCountry;
 
     //Unpacking current temperature data
     const tempInFar = current.temp_f;
@@ -25,13 +35,16 @@ async function getTheWeather(method,query){
     const percievedFar = current.feelslike_f;
     const percievedCel = current.feelslike_c;
     const humidity = current.humidity;
+    const currentCon = current.condition.text
+
+    tempText.textContent = currentCon;
+    tempNumber.textContent = tempInFar +'°F';
 
     //Unpacking forecast data
     const forecastDays = forecast.forecastday;
     function getForecast(){
-        let index;
+        forecastBody.textContent=''
         for(let day of forecastDays){
-            index++
             const dateDisplay = day.date;
             const dayInfo = day.day;
             const dayMaxF = dayInfo.maxtemp_f;
@@ -39,9 +52,35 @@ async function getTheWeather(method,query){
             const dayMinF = dayInfo.mintemp_f;
             const dayMinC = dayInfo.mintemp_c;
             const weatherCon = dayInfo.condition;
+            const riskOfRain = dayInfo.daily_chance_of_rain;
+            const dayCondition = weatherCon.text;
+            const dayIcon = weatherCon.icon;
+
+            
+            const foreCard = document.createElement('div');
+            foreCard.setAttribute('class','foreCard');
+
+            const maxTemp = document.createElement('div');
+            maxTemp.textContent = 'Max: ' + dayMaxF;
+
+            const minTemp = document.createElement('div');
+            minTemp.textContent = 'Min: ' + dayMinF;
+
+            const rainChance = document.createElement('div');
+            rainChance.textContent = 'Rain Chance: ' + riskOfRain;
+
+            const foreCon = document.createElement('div');
+            foreCon.textContent = 'Condition: ' + dayCondition;
+
+            const foreIcon = document.createElement('img');
+            
+
+            foreCard.append(maxTemp,minTemp,rainChance,foreCon,foreIcon)
+            forecastBody.appendChild(foreCard);
+
         }
     }
-    return getForecast();
+    return getForecast(),console.log(forecastDays[0]);
 
 }
 document.getElementById('submit').addEventListener('click',(e)=>{
