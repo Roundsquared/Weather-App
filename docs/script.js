@@ -11,7 +11,7 @@ const city = document.querySelector('.city');
 const state = document.querySelector('.state');
 const country = document.querySelector('.country');
 async function getTheWeather(method,query){
-    const response = await fetch(`http://api.weatherapi.com/v1/${method}.json?key=7c5ae783336f49c7a99165328231411&q=${query}&days=${days}`,{mode: 'cors'});
+    const response = await fetch(`https://api.weatherapi.com/v1/${method}.json?key=7c5ae783336f49c7a99165328231411&q=${query}&days=${days}`,{mode: 'cors'});
     const json = await response.json();
 
     // Getting the json info for the user's location, forecast for the next 'X' days, and the current day's information
