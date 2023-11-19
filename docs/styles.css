@@ -1,0 +1,92 @@
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    height:100vh;
+}
+img{
+    height:3rem;
+    width:3rem;
+}
+.griddy{
+    display:grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+    height:100%;
+}
+.f-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.f-row{
+    display: flex;
+    align-items: center;
+}
+.lang-and-mode{
+    grid-row: span 7/8;
+    grid-column: 1/2;
+    background-color: cadetblue;
+    justify-content: center;
+}
+.current-with-city{
+    grid-row: span 7/8;
+    grid-column: span 6/8;
+    background-color: azure;
+    padding: 3rem;
+}
+.time-sunrise-sunset{
+    grid-row: span 7/8;
+    grid-column: span 3/11;
+    background-color: beige;
+    justify-content: center;
+}
+.forecast{
+    grid-row: 8/11;
+    grid-column: span 10/11;
+    background-color: aquamarine;
+    gap:50px;
+    align-items: center;
+    padding: 2rem;
+}
+.hourly{
+    width: 200px;
+    height:200px;
+    background-color: gold;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: space-around;
+}
+.hourly img{
+    height:3rem;
+    width:3rem;
+}
+.current-weather-icon img{
+    width:200px;
+    height:200px;
+}
+.tempNumber{
+    font-size:4rem;
+}
+.weather-info{
+    gap:3rem;
+    text-align: center;
+}
+.city{
+    font-size: 3rem;
+}
+.state{
+    font-size: 2rem;
+}
+.country{
+    font-size: 1.5rem;
+}
+.foreCard{
+    width: 200px;
+    height:200px;
+    background-color: gold;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: space-around;
+}
