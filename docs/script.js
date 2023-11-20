@@ -14,6 +14,8 @@ const state = document.querySelector('.state');
 const country = document.querySelector('.country');
 const todaysTime = document.querySelector('.local-current-time');
 const todaysDate = document.querySelector('.local-current-date');
+const whenSunUp = document.querySelector('.sunrisetime');
+const whenSunDown = document.querySelector('.sunsettime');
 async function getTheWeather(method,query){
     const response = await fetch(`https://api.weatherapi.com/v1/${method}.json?key=7c5ae783336f49c7a99165328231411&q=${query}&days=${days}`,{mode: 'cors'});
     const json = await response.json();
@@ -49,6 +51,11 @@ async function getTheWeather(method,query){
 
     //Unpacking forecast data
     const forecastDays = forecast.forecastday;
+    const currentAstro = forecastDays[0].astro;
+    const sunrise = currentAstro.sunrise;
+    const sunset = currentAstro.sunset;
+    whenSunUp.textContent=sunrise;
+    whenSunDown.textContent=sunset;
     function getForecast(){
         forecastBody.textContent=''
         for(let day of forecastDays){
