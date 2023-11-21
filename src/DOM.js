@@ -53,9 +53,38 @@ export async function updateScreen(){
             minTemp.textContent = day[3];
             const condition = document.createElement('div');
             condition.textContent = day[5];
+            const hourly = day[7];
             dayDom.append(date,maxTemp,minTemp,condition)
             dayDom.addEventListener('click',()=>{
-                console.log(myid)
+                hourlyMenuDOM.textContent=""
+                for(let hour of hourly){
+                    const hourHolder = document.createElement('div');
+                    hourHolder.setAttribute('class','card');
+
+                    const hourlyTemp = document.createElement('div');
+                    hourlyTemp.textContent = hour[0];
+
+                    const hourlyFeels = document.createElement('div');
+                    hourlyFeels.textContent = hour[2];
+
+                    const hourlyCondition = document.createElement('div');
+                    hourlyCondition.textContent = hour[4];
+
+                    const hourlyRainChance = document.createElement('div');
+                    hourlyRainChance.textContent = hour[6];
+
+                    const hourlyHumidity = document.createElement('div');
+                    hourlyHumidity.textContent = hour[7];
+
+                    const hourlyCloud = document.createElement('div');
+                    hourlyCloud.textContent = hour[8];
+
+                    hourHolder.append(hourlyTemp,hourlyFeels,hourlyCondition,hourlyRainChance,hourlyHumidity,hourlyCloud)
+
+                    hourlyMenuDOM.appendChild(hourHolder)
+
+                }
+                console.log(myid) 
             })
             index++
         }
