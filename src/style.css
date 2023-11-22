@@ -1,0 +1,52 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height:100vh;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    max-width:700px;
+    gap:2rem;
+    padding: 0 2.5rem;
+}
+section{
+    background-color: aliceblue;
+    width:100%;
+}
+
+.hourly-scroll{
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.card{
+    width: 150px;
+    height: 150px;
+    flex: auto;
+    background-color: aquamarine;
+    margin:1.25rem;
+    border-radius: 25px;
+}
+
+.today{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+}
+
+.forecast{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-row: auto auto;
+}
+
+.header{
+    grid-column: span 3/4;
+}

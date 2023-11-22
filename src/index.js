@@ -1,4 +1,5 @@
 import { updateScreen } from "./DOM";
+import './style.css';
 export async function getTheWeather(query){
     const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=7c5ae783336f49c7a99165328231411&q=${query}&days=3`,{mode: 'cors'});
     const json = await response.json();
@@ -54,7 +55,7 @@ export async function getTheWeather(query){
         const hourHolder=[];
         dayCount++
         let hourCount=0;
-        const dayDate = day.date;
+        const dayDate = day.date_epoch;
         const dayInfo = day.day;
         const hourlyInfo = day.hour;
 
