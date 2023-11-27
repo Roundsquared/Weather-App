@@ -1,5 +1,19 @@
 import { updateScreen } from "./DOM";
 import './style.css';
+
+export let query;
+
+const searchButton = document.getElementById('search-submit');
+const searchBar = document.getElementById('search-input');
+const searchForm = document.getElementById('search-form');
+
+searchButton.addEventListener('click',(e)=>{
+    e.preventDefault();
+    query = searchBar.value;
+    searchForm.reset();
+    updateScreen();
+})
+
 export async function getTheWeather(query){
     const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=7c5ae783336f49c7a99165328231411&q=${query}&days=3`,{mode: 'cors'});
     const json = await response.json();
@@ -8,10 +22,12 @@ export async function getTheWeather(query){
     const forecast = json.forecast;
     const current = json.current;
 
+    const localInfo =[]
     const currentCity = whereAmI.name;
     const currentCountry = whereAmI.country;
     const currentRegion = whereAmI.region;
     const currentLocalTime = whereAmI.localtime;
+    localInfo.push(currentCity,currentCountry,currentRegion,currentLocalTime)
 
     const forecastDays = forecast.forecastday;
    
@@ -54,7 +70,7 @@ export async function getTheWeather(query){
         const dayArray=[];
         const hourHolder=[];
         dayCount++
-        let hourCount=0;
+      
         const dayDate = day.date_epoch;
         const dayInfo = day.day;
         const hourlyInfo = day.hour;
@@ -68,7 +84,7 @@ export async function getTheWeather(query){
         function hourly(){
             for(let hour of hourlyInfo){
             const hourArray=[];
-            hourCount++
+            const hourlyTime = hour.time_epoch;
             const hourlyTempF = hour.temp_f;
             const hourlyTempC = hour.temp_c;
             const hourlyFeelsF = hour.feelslike_f;
@@ -78,7 +94,7 @@ export async function getTheWeather(query){
             const hourlyCloud = hour.cloud;
             const hourlyHumidity = hour.humidity;
             const hourlyRainChance = hour.chance_of_rain;
-            hourArray.push(hourlyTempF,hourlyTempC,hourlyFeelsF,hourlyFeelsC,hourlyConText,hourlyConCode,hourlyRainChance,hourlyHumidity,hourlyCloud)
+            hourArray.push(hourlyTempF,hourlyTempC,hourlyFeelsF,hourlyFeelsC,hourlyConText,hourlyConCode,hourlyRainChance,hourlyHumidity,hourlyCloud,hourlyTime)
             hourHolder.push(hourArray)
             }
             dayArray.push(dayDate,forecastMaxF,forecastMaxC,forecastMinF,forecastMinC,forecastConText,forecastConCode,hourHolder);
@@ -88,12 +104,11 @@ export async function getTheWeather(query){
         }
         return forecastArray;
     }
-    
+
     daily();
     getCurrent();
+    
     biggerArray.length=0;
-    biggerArray.push(currentArray,forecastArray)
+    biggerArray.push(localInfo,currentArray,forecastArray)
     return biggerArray
 }
-updateScreen();
-
